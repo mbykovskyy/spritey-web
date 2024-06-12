@@ -106,7 +106,7 @@ export default function GenerateSpriteSheetSection({sheet, sprites}: {sheet: She
 
   return (
     <div className="flex">
-      <span className="text-6xl mt-3 me-4">3.</span>
+      <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">3.</span>
       <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h4 className="flex mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
           Generate sprite sheet

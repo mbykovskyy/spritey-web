@@ -20,10 +20,6 @@ a {
   html {
     color-scheme: dark;
   }
-
-  body {
-		background-color: #242F40;
-	}
 }
 
 @tailwind base;

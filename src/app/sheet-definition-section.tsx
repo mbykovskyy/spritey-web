@@ -29,7 +29,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
 
   return (
     <div className="flex">
-      <span className="text-6xl mt-3 me-4">1.</span>
+      <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">1.</span>
       <div className="w-full mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <h4 className="flex mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
           Sprite sheet dimentions and color
