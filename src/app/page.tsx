@@ -19,6 +19,11 @@ export default function Home() {
   });
   const[sprites, setSprites] = useState([]);
 
+  // localStorage is not defined on Next.js server side so we need to check that it's defined
+  if (typeof localStorage !== 'undefined' && localStorage.getItem('sheetId') === null) {
+    localStorage.setItem('sheetId', crypto.randomUUID());
+  }
+
   return (
     <Container maxWidth="md" className={styles.container}>
       <div className="flex items-center justify-center">
