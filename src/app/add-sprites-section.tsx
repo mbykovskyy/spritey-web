@@ -192,6 +192,7 @@ export default function AddSpritesSection({sprites, onChange}: {sprites: any, on
                 onBlur={(e) => {
                   const searchTerm = e.target.value;
                   setSearchTerm(searchTerm);
+                  setPageNumber(1);
                   fetchSprites(1, searchTerm).then(updateSpritesTable);
                 }}
               />
@@ -232,11 +233,11 @@ export default function AddSpritesSection({sprites, onChange}: {sprites: any, on
                 </tr> ||
                 sprites
                   .map((sprite: any, i: number) => {
-                    const spriteNameCell = (editSprite === null || editSprite.name !== sprite.name) &&
+                    const spriteNameCell = (editSprite === null || editSprite.id !== sprite.id) &&
                       <th scope="row" className="w-6/12 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         {sprite.name}
                       </th>;
-                    const editSpriteNameCell = (editSprite !== null && editSprite.name === sprite.name) &&
+                    const editSpriteNameCell = (editSprite !== null && editSprite.id === sprite.id) &&
                       <th scope="row" className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <div className="relative">
                           <input
