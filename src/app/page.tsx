@@ -6,23 +6,33 @@ import SheetDefinitionSection from './sheet-definition-section';
 import AddSpritesSection from './add-sprites-section';
 import GenerateSpriteSheetSection from './generate-sprite-sheet-section';
 import { Sheet } from './types';
+import { createSheet, getSheet } from './spritey-server-api';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [sheet, setSheet] = useState<Sheet>({
-    maxWidth: 8192,
-    maxHeight: 8192,
+    id: '',
+    maxWidth: 0,
+    maxHeight: 0,
     isPowerOfTwo: false,
     isMaintainAspectRatio: false,
-    backgroundColor: 'FF00FF'
+    backgroundColor: '000000'
   });
   const[sprites, setSprites] = useState([]);
 
-  // localStorage is not defined on Next.js server side so we need to check that it's defined
-  if (typeof localStorage !== 'undefined' && localStorage.getItem('sheetId') === null) {
-    localStorage.setItem('sheetId', crypto.randomUUID());
-  }
+  useEffect(() => {
+    const sheetId = localStorage.getItem('sheetId');
+
+    if (sheetId === null) {
+      createSheet().then((sheetDef) => {
+        localStorage.setItem('sheetId', sheetDef.id);
+        setSheet(sheetDef);
+      });
+    } else {
+      getSheet(sheetId).then(setSheet);
+    }
+  }, []);
 
   return (
     <Container maxWidth="md" className={styles.container}>

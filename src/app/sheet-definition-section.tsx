@@ -1,30 +1,12 @@
 "use client";
 
 import { Sheet } from './types';
-import { findPowerOfTwo } from './packer/dimension';
+import { updateSheet } from './spritey-server-api';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
-  function onPowerOfTwoChanged(isPowerOfTwo: boolean) {
-    const newSheetDefinition = {...sheet, isPowerOfTwo: isPowerOfTwo};
-
-    if (isPowerOfTwo) {
-      newSheetDefinition.maxWidth = findPowerOfTwo(sheet.maxWidth);
-      newSheetDefinition.maxHeight = findPowerOfTwo(sheet.maxHeight);
-    }
-
-    onChange(newSheetDefinition);
-  }
-
-  function onMaxWidthBlur() {
-    if (sheet.isPowerOfTwo) {
-      onChange({...sheet, maxWidth: findPowerOfTwo(sheet.maxWidth)});
-    }
-  }
-
-  function onMaxHeightBlur() {
-    if (sheet.isPowerOfTwo) {
-      onChange({...sheet, maxHeight: findPowerOfTwo(sheet.maxHeight)});
-    }
+  async function updateSheetProp(propName: keyof Sheet, newValue: any) {
+      const newSheet = await updateSheet(sheet.id, propName, newValue.toString());
+      onChange({...sheet, ...newSheet});
   }
 
   return (
@@ -46,8 +28,8 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
                 value={sheet.maxWidth}
-                onChange={(e) => onChange({...sheet, maxWidth: e.target.value})}
-                onBlur={onMaxWidthBlur}
+                onChange={(e) => onChange({...sheet, maxWidth: parseInt(e.target.value)})}
+                onBlur={(e) => updateSheetProp('maxWidth', parseInt(e.target.value))}
               />
             </div>
             <div>
@@ -61,7 +43,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
                 required
                 value={sheet.maxHeight}
                 onChange={(e) => onChange({...sheet, maxHeight: e.target.value})}
-                onBlur={onMaxHeightBlur}
+                onBlur={(e) => updateSheetProp('maxHeight', parseInt(e.target.value))}
               />
             </div>
           </div>
@@ -69,8 +51,8 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
             <input
               id="power-of-two-checkbox"
               type="checkbox"
-              defaultChecked={sheet.isPowerOfTwo}
-              onChange={(e) => onPowerOfTwoChanged(e.target.checked)}
+              checked={sheet.isPowerOfTwo}
+              onChange={(e) => updateSheetProp('isPowerOfTwo', e.target.checked)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label htmlFor="power-of-two-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -81,8 +63,8 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
             <input
               id="maintain-aspek-ratio-checkbox"
               type="checkbox"
-              defaultChecked={sheet.isMaintainAspectRatio}
-              onChange={(e) => onChange({...sheet, isMaintainAspectRatio: e.target.checked})}
+              checked={sheet.isMaintainAspectRatio}
+              onChange={(e) => updateSheetProp('isMaintainAspectRatio', e.target.checked)}
               className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
             <label htmlFor="maintain-aspek-ratio-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -103,7 +85,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
                   type="text"
                   className="rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   defaultValue={sheet.backgroundColor}
-                  onChange={(e) => onChange({...sheet, backgroundColor: e.target.value})}
+                  onBlur={(e) => updateSheetProp('backgroundColor', e.target.value)}
                 />
               </div>
             </div>
