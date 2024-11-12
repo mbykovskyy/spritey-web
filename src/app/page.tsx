@@ -19,7 +19,6 @@ export default function Home() {
     isMaintainAspectRatio: false,
     backgroundColor: '000000'
   });
-  const[sprites, setSprites] = useState([]);
 
   useEffect(() => {
     const sheetId = localStorage.getItem('sheetId');
@@ -40,8 +39,8 @@ export default function Home() {
         <div className="text-9xl pb-10 inline-block text-transparent bg-clip-text font-medium bg-gradient-to-br from-green-400 to-blue-600 ">Spritey</div>
       </div>
       <SheetDefinitionSection sheet={sheet} onChange={(s: any) => setSheet(s)} />
-      <AddSpritesSection sprites={sprites} onChange={(s: any) => setSprites(s)} />
-      <GenerateSpriteSheetSection sheet={sheet} sprites={sprites} />
+      <AddSpritesSection sheetId={sheet.id} />
+      <GenerateSpriteSheetSection sheetId={sheet.id} />
     </Container>
   ) 
 }

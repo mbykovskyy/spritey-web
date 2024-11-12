@@ -6,7 +6,7 @@ import { Sheet } from './types';
 
 import { create } from 'xmlbuilder2';
 
-export default function GenerateSpriteSheetSection({sheet, sprites}: {sheet: Sheet, sprites: any[]}) {
+export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const [imageType, setImageType] = useState('png');
@@ -61,47 +61,47 @@ export default function GenerateSpriteSheetSection({sheet, sprites}: {sheet: She
   }
 
   function generate() {
-    try {
-      setGenerateError('');
-      setImageDataUri('');
-      setMetadataDataUri('');
+    // try {
+    //   setGenerateError('');
+    //   setImageDataUri('');
+    //   setMetadataDataUri('');
 
-      const sheetSize = pack(sprites, sheet);
-      const canvas = canvasRef.current;
+    //   const sheetSize = pack(sprites, sheet);
+    //   const canvas = canvasRef.current;
 
-      if (canvas) {
-        canvas.width = sheetSize.width;
-        canvas.height = sheetSize.height;
+    //   if (canvas) {
+    //     canvas.width = sheetSize.width;
+    //     canvas.height = sheetSize.height;
 
-        const ctx = canvas.getContext('2d');
-        if (ctx) {
-          ctx.fillStyle = '#' + sheet.backgroundColor;
-          ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    //     const ctx = canvas.getContext('2d');
+    //     if (ctx) {
+    //       ctx.fillStyle = '#' + sheet.backgroundColor;
+    //       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-          for (const sprite of sprites) {
-            ctx.drawImage(sprite.data, sprite.x, sprite.y);
-          }
+    //       for (const sprite of sprites) {
+    //         ctx.drawImage(sprite.data, sprite.x, sprite.y);
+    //       }
 
-          setImageDataUri(canvas.toDataURL('image/' + imageType));
-        }
-      }
+    //       setImageDataUri(canvas.toDataURL('image/' + imageType));
+    //     }
+    //   }
 
-      const metadata = generateMetadata(sheetSize, sheet.backgroundColor, sprites);
-      const metadataStr = (metadataType === 'json')
-        ? generateMetadataJson(metadata)
-        : generateMetadataXml(metadata);
+    //   const metadata = generateMetadata(sheetSize, sheet.backgroundColor, sprites);
+    //   const metadataStr = (metadataType === 'json')
+    //     ? generateMetadataJson(metadata)
+    //     : generateMetadataXml(metadata);
 
-      const mimeType = (metadataType === 'json')
-        ? 'application/json'
-        : 'text/xml';
+    //   const mimeType = (metadataType === 'json')
+    //     ? 'application/json'
+    //     : 'text/xml';
 
-      setMetadata(metadataStr);
-      setMetadataDataUri('data:' + mimeType + ';base64,' + btoa(metadataStr));
-    } catch (error) {
-      if (error instanceof Error) {
-        setGenerateError(error.message);
-      }
-    }
+    //   setMetadata(metadataStr);
+    //   setMetadataDataUri('data:' + mimeType + ';base64,' + btoa(metadataStr));
+    // } catch (error) {
+    //   if (error instanceof Error) {
+    //     setGenerateError(error.message);
+    //   }
+    // }
   }
 
   return (
