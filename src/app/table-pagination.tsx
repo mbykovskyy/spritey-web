@@ -1,6 +1,15 @@
 "use client";
 
-export default function TablePagination({visible, page, pageStartIndex, pageEndIndex, totalCount, onPageChange}: {visible: boolean, page: number, pageStartIndex: number, pageEndIndex: number, totalCount: number, onPageChange: (pageNumber: number) => void}) {
+type TablePaginationProps = {
+  visible: boolean;
+  page: number;
+  pageStartIndex: number;
+  pageEndIndex: number;
+  totalCount: number;
+  onPageChange: (pageNumber: number) => void;
+};
+
+export default function TablePagination({visible, page, pageStartIndex, pageEndIndex, totalCount, onPageChange}: TablePaginationProps) {
   return (
     visible &&
     <nav className="flex items-center flex-column flex-wrap md:flex-row justify-between pt-4" aria-label="Table navigation">

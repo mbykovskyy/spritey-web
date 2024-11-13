@@ -6,12 +6,12 @@ import SearchBox from './search-box';
 import ProgressBar from './progress-bar';
 import TablePagination from './table-pagination';
 import { PaginatedSpriteList, Sprite } from './types';
+import SpriteTable from './sprite-table';
 
 export default function AddSpritesSection({sheetId}: {sheetId: string}) {
   const [sprites, setSprites] = useState<Sprite[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
-  const [editSprite, setEditSprite] = useState<any>(null);
   const [showProgressbar, setShowProgressbar] = useState(false);
   const [progressPercentile, setProgressPercentile] = useState(0);
   const [pageStartIndex, setPageStartIndex] = useState(0);
@@ -24,7 +24,6 @@ export default function AddSpritesSection({sheetId}: {sheetId: string}) {
     if (status === 204) {
       const paginatedSprites = await getSprites(sheetId, pageNumber, searchTerm);
       updateSpritesTable(paginatedSprites);
-      setEditSprite(null);
     }
   };
   
@@ -77,20 +76,18 @@ export default function AddSpritesSection({sheetId}: {sheetId: string}) {
           Add sprites
         </h4>
         <div className="grid gap-6 mb-4 md:grid-cols-2">
-          <div>
-            <input
-              className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              id="upload-multiple-files"
-              type="file"
-              multiple
-              accept="image/png, image/jpeg, image/gif"
-              onChange={(e) => {
-                if (e.target.files) {
-                  uploadFiles(e.target.files);
-                }
-              }}
-            />
-          </div>
+          <input
+            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            id="upload-multiple-files"
+            type="file"
+            multiple
+            accept="image/png, image/jpeg, image/gif"
+            onChange={(e) => {
+              if (e.target.files) {
+                uploadFiles(e.target.files);
+              }
+            }}
+          />
           <SearchBox
             onChange={(searchTerm) => {
               setSearchTerm(searchTerm);
@@ -99,74 +96,14 @@ export default function AddSpritesSection({sheetId}: {sheetId: string}) {
           />
         </div>
         <ProgressBar visible={showProgressbar} progress={progressPercentile} />
-        <div className="relative overflow-x-auto sm:rounded-t-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-              <tr>
-                <th scope="col" className="px-6 py-3">Name</th>
-                <th scope="col" className="px-6 py-3">Size</th>
-                <th scope="col" className="px-6 py-3"><span className="sr-only">Actions</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              {
-                (sprites.length === 0) && searchTerm === '' &&
-                <tr>
-                  <th colSpan={3} scope="row" className=" text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    No sprites have been uploaded yet.
-                  </th>
-                </tr> ||
-                (sprites.length === 0) && searchTerm !== '' &&
-                <tr>
-                  <th colSpan={3} scope="row" className=" text-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    No sprites match search criteria.
-                  </th>
-                </tr> ||
-                sprites
-                  .map((sprite: any, i: number) => {
-                    const spriteNameCell = (editSprite === null || editSprite.id !== sprite.id) &&
-                      <th scope="row" className="w-6/12 px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {sprite.name}
-                      </th>;
-                    const editSpriteNameCell = (editSprite !== null && editSprite.id === sprite.id) &&
-                      <th scope="row" className="px-3 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        <div className="relative">
-                          <input
-                            autoFocus
-                            type="text"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            defaultValue={sprite.name}
-                            onKeyDown={(e) => {
-                              if(e.key === 'Enter') {
-                                e.currentTarget.blur();
-                              }
-                            }}
-                            onBlur={(e) => changeSpriteName(editSprite, e.target.value)}
-                          />
-                        </div>
-                      </th>;
-
-                  return (
-                    <tr key={i} className="bg-white border-t dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      {spriteNameCell || editSpriteNameCell}
-                      <td className="px-6 py-4">
-                        {sprite.width + 'x' + sprite.height}
-                      </td>
-                      <td className="px-6 py-4 text-right">
-                        <a onClick={() => setEditSprite(sprite)} className="cursor-pointer font-medium text-blue-600 dark:text-blue-500 hover:underline">
-                          Edit
-                        </a>
-                        <a onClick={() => removeSprite(sprite)} className="cursor-pointer font-medium text-red-600 dark:text-red-500 hover:underline ms-3">
-                          Remove
-                        </a>
-                      </td>
-                    </tr>
-                  );
-                })
-              }
-            </tbody>
-          </table>
-        </div>
+        <SpriteTable
+          sprites={sprites}
+          noSpritesText={
+            (searchTerm === '') ? 'No sprites have been uploaded yet.' : 'No sprites match search criteria.'
+          }
+          onSpriteRemove={removeSprite}
+          onSpriteNameChange={changeSpriteName}
+          />
         <TablePagination
           visible={sprites.length > 0}
           pageStartIndex={pageStartIndex}
