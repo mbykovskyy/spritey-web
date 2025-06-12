@@ -3,14 +3,14 @@
 import { Dimension } from "./dimension";
 import { Rectangle } from "./rectangle";
 
-// Calculates how much a sheet needs to be expanded in order to fix a sprite
+// Calculates how much a sheet needs to be expanded in order to fit a sprite
 export function getExpandBy(
   zones: Rectangle[],
   sprite: Rectangle,
   currentSheetSize: Dimension,
   maxSheetSize: Dimension
 ) {
-  // Go through zones to see how much a zone needs to be expanded by to fit a sprite
+  // Go through zones to see how much a zone needs to be expanded to fit a sprite
   for (const zone of zones) {
     const canExpandZoneWidth = (zone.x + zone.width === currentSheetSize.width);
     const canExpandZoneHeight = (zone.y + zone.height === currentSheetSize.height);

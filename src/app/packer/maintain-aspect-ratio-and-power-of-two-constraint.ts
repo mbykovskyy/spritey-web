@@ -3,7 +3,7 @@
 import { Dimension, findPowerOfTwo } from "./dimension";
 import { Rectangle } from "./rectangle";
 
-// Calculates how much a sheet needs to be expanded in order to fix a sprite
+// Calculates how much a sheet needs to be expanded in order to fit a sprite
 export function getExpandBy(
   zones: Rectangle[],
   sprite: Rectangle,

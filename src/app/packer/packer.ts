@@ -69,8 +69,8 @@ function recalculateZones(zones: Rectangle[], sprite: Rectangle) {
 }
 
 // Expand zones by the expandBy amount
-function expandZones(zones: Rectangle[], expandBy: Dimension, currentSheetSize: Dimension) {
-  const newZones = [];
+function expandZones(zones: Rectangle[], expandBy: Dimension, currentSheetSize: Dimension): Rectangle[] {
+  const newZones: Rectangle[] = [];
 
   for (const zone of zones) {
     const newZone = {...zone};
@@ -146,7 +146,6 @@ export default function pack(sprites: Rectangle[], sheet: Sheet) {
     } else {
       // Expand sprite sheet and try again.
       const expandByDimension = getExpandByStrategy(sheet)(freeZones, sprite, currentSheetSize, maxSheetSize);
-      //const expandByDimension = getExpandBy(freeZones, sprite, currentSheetSize, maxSheetSize);
       freeZones = expandZones(freeZones, expandByDimension, currentSheetSize);
 
       // Expand sheet

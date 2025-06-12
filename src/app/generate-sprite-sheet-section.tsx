@@ -5,6 +5,8 @@ import pack from './packer/packer';
 import { Sheet } from './types';
 
 import { create } from 'xmlbuilder2';
+import ImageTypeList from './image-type-list';
+import MetadataTypeList from './metadata-type-list';
 
 export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -108,7 +110,7 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
     <div className="flex">
       <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">3.</span>
       <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="flex mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
+        <h4 className="flex mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
           Generate sprite sheet
         </h4>
         <div className="mb-4">
@@ -116,79 +118,13 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
             <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Image type
             </span>
-            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div className="flex items-center ps-3">
-                  <input
-                    id="png-image-type-option"
-                    type="radio"
-                    value="png"
-                    name="image-type-input"
-                    checked={imageType === 'png'}
-                    onChange={e => setImageType(e.target.value)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
-                  <label htmlFor="png-image-type-option" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    PNG
-                  </label>
-                </div>
-              </li>
-              <li className="w-full border-b-0 border-gray-200 sm:border-b-0 dark:border-gray-600">
-                <div className="flex items-center ps-3">
-                  <input
-                    id="jpeg-image-type-option"
-                    type="radio"
-                    value="jpeg"
-                    name="image-type-input"
-                    checked={imageType === 'jpeg'}
-                    onChange={e => setImageType(e.target.value)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
-                  <label htmlFor="jpeg-image-type-option" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    JPEG
-                  </label>
-                </div>
-              </li>
-            </ul>
+            <ImageTypeList value={imageType} onChange={setImageType}/>
           </div>
           <div>
             <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
               Metadata type
             </span>
-            <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg sm:flex dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-              <li className="w-full border-b border-gray-200 sm:border-b-0 sm:border-r dark:border-gray-600">
-                <div className="flex items-center ps-3">
-                  <input
-                    id="json-metadata-type-option"
-                    type="radio"
-                    value="json"
-                    name="metadata-type-input"
-                    checked={metadataType === 'json'}
-                    onChange={e => setMetadataType(e.target.value)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
-                  <label htmlFor="json-metadata-type-option" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    JSON
-                  </label>
-                </div>
-              </li>
-              <li className="w-full border-b-0 border-gray-200 sm:border-b-0 dark:border-gray-600">
-                <div className="flex items-center ps-3">
-                  <input
-                    id="xml-metadata-type-option"
-                    type="radio"
-                    value="xml"
-                    name="metadata-type-input"
-                    checked={metadataType === 'xml'}
-                    onChange={e => setMetadataType(e.target.value)}
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
-                  />
-                  <label htmlFor="xml-metadata-type-option" className="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                    XML
-                  </label>
-                </div>
-              </li>
-            </ul>
+            <MetadataTypeList value={metadataType} onChange={setMetadataType}/>
           </div>
         </div>
         <div className="text-center">
@@ -216,7 +152,7 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
                 </svg>
               </button>
             </div>
-        </div>
+          </div>
         }
         <canvas hidden ref={canvasRef} />
         {
