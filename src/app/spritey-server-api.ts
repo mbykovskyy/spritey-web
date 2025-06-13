@@ -28,6 +28,20 @@ export async function updateSheet(sheetId: string, prop: keyof Sheet, value: str
   return response.json();
 }
 
+export async function compileSheet(sheetId: string, props: { [key: string]: string }) {
+  const formData = new FormData();
+  Object.keys(props).forEach((prop: string) => {
+    formData.set(prop, props[prop]);
+  });
+
+  const response = await fetch(`${spriteyServerUri}/sheet/${sheetId}/compile`, {
+    method: 'POST',
+    body: formData
+  });
+
+  return response.status;
+}
+
 export async function  getSprites(sheetId: string, page: number, search: string = '', limit: number = 10): Promise<PaginatedSpriteList> {
   const queryParams = new URLSearchParams({
     page: page.toString(),
@@ -77,4 +91,4 @@ export async function updateSpriteName(sheetId: string, spriteId: string, newNam
   });
 
   return response.status;
-};
+}

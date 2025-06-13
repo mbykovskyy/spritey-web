@@ -7,6 +7,7 @@ import { Sheet } from './types';
 import { create } from 'xmlbuilder2';
 import ImageTypeList from './image-type-list';
 import MetadataTypeList from './metadata-type-list';
+import { compileSheet } from './spritey-server-api';
 
 export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -62,7 +63,13 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
       return builder.up().end({ prettyPrint: true });
   }
 
-  function generate() {
+  async function generate() {
+    const status = await compileSheet(sheetId, { imageType: imageType, metadataType: metadataType });
+
+    if (status !== 204) {
+      setGenerateError("Error occured compiling a sprite sheet.");
+    }
+
     // try {
     //   setGenerateError('');
     //   setImageDataUri('');
