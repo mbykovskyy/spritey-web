@@ -1,4 +1,4 @@
-import { PaginatedSpriteList, Sheet, Sprite } from './types';
+import { PaginatedSpriteList, Sheet, Sprite } from '../types/types';
 
 const spriteyServerUri = "http://localhost:8080";
 

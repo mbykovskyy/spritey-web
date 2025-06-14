@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect, useCallback  } from 'react'
-import { deleteSprite, getSprites, updateSpriteName, uploadSprites } from './spritey-server-api';
-import SearchBox from './search-box';
-import ProgressBar from './progress-bar';
-import TablePagination from './table-pagination';
-import { PaginatedSpriteList, Sprite } from './types';
-import SpriteTable from './sprite-table';
+import { deleteSprite, getSprites, updateSpriteName, uploadSprites } from '../api/spritey-server-api';
+import SearchBox from '../components/search-box';
+import ProgressBar from '../components/progress-bar';
+import TablePagination from '../components/table-pagination';
+import { PaginatedSpriteList, Sprite } from '../types/types';
+import SpriteTable from '../components/sprite-table';
 
 export default function AddSpritesSection({sheetId}: {sheetId: string}) {
   const [sprites, setSprites] = useState<Sprite[]>([]);

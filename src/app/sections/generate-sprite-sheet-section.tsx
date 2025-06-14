@@ -1,13 +1,13 @@
 "use client";
 
 import { useRef, useState } from 'react'
-import pack from './packer/packer';
-import { Sheet } from './types';
+import pack from '../packer/packer';
+import { Sheet } from '../types/types';
 
 import { create } from 'xmlbuilder2';
-import ImageTypeList from './image-type-list';
-import MetadataTypeList from './metadata-type-list';
-import { compileSheet } from './spritey-server-api';
+import ImageTypeList from '../components/image-type-list';
+import MetadataTypeList from '../components/metadata-type-list';
+import { compileSheet } from '../api/spritey-server-api';
 
 export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);

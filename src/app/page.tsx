@@ -2,11 +2,11 @@
 
 import { Container } from '@mui/material'
 import styles from './page.module.css'
-import SheetDefinitionSection from './sheet-definition-section';
-import AddSpritesSection from './add-sprites-section';
-import GenerateSpriteSheetSection from './generate-sprite-sheet-section';
-import { Sheet } from './types';
-import { createSheet, getSheet } from './spritey-server-api';
+import SheetDefinitionSection from './sections/sheet-definition-section';
+import AddSpritesSection from './sections/add-sprites-section';
+import GenerateSpriteSheetSection from './sections/generate-sprite-sheet-section';
+import { Sheet } from './types/types';
+import { createSheet, getSheet } from './api/spritey-server-api';
 
 import { useEffect, useState } from 'react';
 

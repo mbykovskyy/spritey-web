@@ -6,7 +6,7 @@ import { getExpandBy } from "./max-dimensions-constraint";
 import { getExpandBy as getExpandByMaintainAspectRatio } from "./maintain-aspect-ratio-constraint";
 import { getExpandBy as getExpandByMaintainPowerOfTwo } from "./power-of-two-constraint";
 import { getExpandBy as getExpandByMaintianPowerOfTwoAndAspectRatio } from "./maintain-aspect-ratio-and-power-of-two-constraint";
-import { Sheet } from '../types';
+import { Sheet } from '../types/types';
 
 // Finds a location for a sprite
 function findLocation(freeZones: Rectangle[], sprite: Rectangle) {

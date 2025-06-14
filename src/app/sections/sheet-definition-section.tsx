@@ -1,7 +1,7 @@
 "use client";
 
-import { Sheet } from './types';
-import { updateSheet } from './spritey-server-api';
+import { Sheet } from '../types/types';
+import { updateSheet } from '../api/spritey-server-api';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
   async function updateSheetProp(propName: keyof Sheet, newValue: any) {
