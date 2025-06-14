@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Sprite } from "./types";
+import { Sprite } from "../types/types";
 
 type SpriteTableProps = {
   sprites: Sprite[];

@@ -2,7 +2,12 @@
 
 import RadioButtonList from "./radio-button-list";
 
-export default function MetadataTypeList({value, onChange}: {value: string, onChange: (value: string) => void}) {
+type MetadataTypeListProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function MetadataTypeList({value, onChange}: MetadataTypeListProps) {
   const options = [
     {value: 'json', label: 'JSON'},
     {value: 'xml', label: 'XML'}

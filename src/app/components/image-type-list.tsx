@@ -2,7 +2,12 @@
 
 import RadioButtonList from "./radio-button-list";
 
-export default function ImageTypeList({value, onChange}: {value: string, onChange: (value: string) => void}) {
+type ImageTypeListProps = {
+  value: string;
+  onChange: (value: string) => void;
+};
+
+export default function ImageTypeList({value, onChange}: ImageTypeListProps) {
   const options = [
     {value: 'png', label: 'PNG'},
     {value: 'jpeg', label: 'JPEG'}
