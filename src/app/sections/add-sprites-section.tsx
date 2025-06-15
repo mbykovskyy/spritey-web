@@ -7,6 +7,9 @@ import ProgressBar from '../components/progress-bar';
 import TablePagination from '../components/table-pagination';
 import { PaginatedSpriteList, Sprite } from '../types/types';
 import SpriteTable from '../components/sprite-table';
+import SectionNumber from '../components/atoms/section/section-number';
+import SectionHeader from '../components/atoms/section/section-header';
+import Section from '../components/atoms/section/section';
 
 export default function AddSpritesSection({sheetId}: {sheetId: string}) {
   const [sprites, setSprites] = useState<Sprite[]>([]);
@@ -70,11 +73,9 @@ export default function AddSpritesSection({sheetId}: {sheetId: string}) {
 
   return (
     <div className="flex">
-      <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">2.</span>
-      <div className="w-full mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="flex mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
-          Add sprites
-        </h4>
+      <SectionNumber>2.</SectionNumber>
+      <Section>
+        <SectionHeader>Add sprites</SectionHeader>
         <div className="grid gap-6 mb-4 md:grid-cols-2">
           <input
             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -112,7 +113,7 @@ export default function AddSpritesSection({sheetId}: {sheetId: string}) {
           page={pageNumber}
           onPageChange={setPageNumber}
         />
-      </div>
+      </Section>
     </div>
   ) 
 }

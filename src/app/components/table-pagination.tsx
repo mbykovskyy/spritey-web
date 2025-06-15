@@ -33,5 +33,5 @@ export default function TablePagination({visible, page, pageStartIndex, pageEndI
         </li>
       </ul>
     </nav>
-  )
+  );
 }

@@ -8,6 +8,9 @@ import { create } from 'xmlbuilder2';
 import ImageTypeList from '../components/image-type-list';
 import MetadataTypeList from '../components/metadata-type-list';
 import { compileSheet } from '../api/spritey-server-api';
+import SectionNumber from '../components/atoms/section/section-number';
+import SectionHeader from '../components/atoms/section/section-header';
+import Section from '../components/atoms/section/section';
 
 export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -115,11 +118,9 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
 
   return (
     <div className="flex">
-      <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">3.</span>
-      <div className="w-full p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="flex mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
-          Generate sprite sheet
-        </h4>
+      <SectionNumber>3.</SectionNumber>
+      <Section>
+        <SectionHeader>Generate sprite sheet</SectionHeader>
         <div className="mb-4">
           <div className="mb-4">
             <span className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
@@ -186,7 +187,7 @@ export default function GenerateSpriteSheetSection({sheetId}: {sheetId: string})
             </div>
           </div>
         }
-      </div>
+      </Section>
     </div>
   ) 
 }

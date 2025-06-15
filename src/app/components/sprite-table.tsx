@@ -79,5 +79,5 @@ export default function SpriteTable({sprites, noSpritesText, onSpriteRemove, onS
         </tbody>
       </table>
     </div>
-  )
+  );
 }

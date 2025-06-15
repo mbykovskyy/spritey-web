@@ -2,6 +2,11 @@
 
 import { Sheet } from '../types/types';
 import { updateSheet } from '../api/spritey-server-api';
+import SectionNumber from '../components/atoms/section/section-number';
+import SectionHeader from '../components/atoms/section/section-header';
+import Section from '../components/atoms/section/section';
+import Input from '../components/atoms/input';
+import Label from '../components/atoms/label';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
   async function updateSheetProp(propName: keyof Sheet, newValue: any) {
@@ -11,21 +16,16 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
 
   return (
     <div className="flex">
-      <span className="text-6xl mt-3 me-4 text-gray-900 dark:text-gray-300">1.</span>
-      <div className="w-full mb-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <h4 className="flex mb-6 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
-          Sprite sheet dimentions and color
-        </h4>
+      <SectionNumber>1.</SectionNumber>
+      <Section>
+        <SectionHeader>Sprite sheet dimentions and color</SectionHeader>
         <form>
           <div className="grid gap-6 mb-4 md:grid-cols-2">
             <div>
-              <label htmlFor="max-width-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Maximum width
-              </label>
-              <input
+              <Label htmlFor="max-width-input">Maximum width</Label>
+              <Input
                 id="max-width-input"
                 type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
                 value={sheet.maxWidth}
                 onChange={(e) => onChange({...sheet, maxWidth: parseInt(e.target.value)})}
@@ -33,13 +33,10 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
               />
             </div>
             <div>
-              <label htmlFor="max-height-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Maximum height
-              </label>
-              <input
+              <Label htmlFor="max-height-input">Maximum height</Label>
+              <Input
                 id="max-height-input"
                 type="number"
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 required
                 value={sheet.maxHeight}
                 onChange={(e) => onChange({...sheet, maxHeight: e.target.value})}
@@ -73,9 +70,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             <div>
-              <label htmlFor="background-color-input" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                Background color
-              </label>
+              <Label htmlFor="background-color-input">Background color</Label>
               <div className="flex">
                 <span className="inline-flex items-center px-3 text-xl text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
                   #
@@ -83,7 +78,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
                 <input
                   id="background-color-input"
                   type="text"
-                  className="rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                  className="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   defaultValue={sheet.backgroundColor}
                   onBlur={(e) => updateSheetProp('backgroundColor', e.target.value)}
                 />
@@ -91,7 +86,7 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
             </div>
           </div>
         </form>
-      </div>
+      </Section>
     </div>
   ) 
 }
