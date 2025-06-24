@@ -9,6 +9,7 @@ import { Input } from '../components/atoms/input';
 import Label from '../components/atoms/label';
 import Checkbox from '../components/atoms/checkbox'
 import { InputGroup, Text } from '../components/atoms/input-group';
+import InputField from '../components/atoms/input-field';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
   async function updateSheetProp(propName: keyof Sheet, newValue: any) {
@@ -23,28 +24,22 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
         <SectionHeader>Sprite sheet dimentions and color</SectionHeader>
         <form>
           <div className="grid gap-6 mb-4 md:grid-cols-2">
-            <div>
-              <Label htmlFor="max-width-input">Maximum width</Label>
-              <Input
-                id="max-width-input"
-                type="number"
-                required
-                value={sheet.maxWidth}
-                onChange={(e) => onChange({...sheet, maxWidth: parseInt(e.target.value)})}
-                onBlur={(e) => updateSheetProp('maxWidth', parseInt(e.target.value))}
-              />
-            </div>
-            <div>
-              <Label htmlFor="max-height-input">Maximum height</Label>
-              <Input
-                id="max-height-input"
+            <InputField
+              label="Maximum width"
+              type="number"
+              required
+              value={sheet.maxWidth}
+              onChange={(e) => onChange({...sheet, maxWidth: parseInt(e.target.value)})}
+              onBlur={(e) => updateSheetProp('maxWidth', parseInt(e.target.value))}
+            />
+            <InputField
+                label="Maximum height"
                 type="number"
                 required
                 value={sheet.maxHeight}
                 onChange={(e) => onChange({...sheet, maxHeight: e.target.value})}
                 onBlur={(e) => updateSheetProp('maxHeight', parseInt(e.target.value))}
-              />
-            </div>
+            />
           </div>
           <div className="flex items-center mb-4">
             <Checkbox
