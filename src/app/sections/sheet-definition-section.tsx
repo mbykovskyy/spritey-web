@@ -5,8 +5,10 @@ import { updateSheet } from '../api/spritey-server-api';
 import SectionNumber from '../components/atoms/section/section-number';
 import SectionHeader from '../components/atoms/section/section-header';
 import Section from '../components/atoms/section/section';
-import Input from '../components/atoms/input';
+import { Input } from '../components/atoms/input';
 import Label from '../components/atoms/label';
+import Checkbox from '../components/atoms/checkbox'
+import { InputGroup, Text } from '../components/atoms/input-group';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
   async function updateSheetProp(propName: keyof Sheet, newValue: any) {
@@ -45,44 +47,35 @@ export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet,
             </div>
           </div>
           <div className="flex items-center mb-4">
-            <input
+            <Checkbox
               id="power-of-two-checkbox"
               type="checkbox"
               checked={sheet.isPowerOfTwo}
               onChange={(e) => updateSheetProp('isPowerOfTwo', e.target.checked)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label htmlFor="power-of-two-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Make sheet dimentions power of two
-            </label>
+            <Label htmlFor="power-of-two-checkbox">Make sheet dimentions power of two</Label>
           </div>
           <div className="flex items-center mb-4">
-            <input
-              id="maintain-aspek-ratio-checkbox"
+            <Checkbox
+              id="maintain-aspect-ratio-checkbox"
               type="checkbox"
               checked={sheet.isMaintainAspectRatio}
               onChange={(e) => updateSheetProp('isMaintainAspectRatio', e.target.checked)}
-              className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
             />
-            <label htmlFor="maintain-aspek-ratio-checkbox" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-              Maintain dimentions aspect ratio
-            </label>
+            <Label htmlFor="maintain-aspect-ratio-checkbox">Maintain dimentions aspect ratio</Label>
           </div>
           <div className="grid gap-6 md:grid-cols-2">
             <div>
               <Label htmlFor="background-color-input">Background color</Label>
-              <div className="flex">
-                <span className="inline-flex items-center px-3 text-xl text-gray-900 bg-gray-200 border rounded-e-0 border-gray-300 border-e-0 rounded-s-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
-                  #
-                </span>
-                <input
+              <InputGroup>
+                <Text>#</Text>
+                <Input
                   id="background-color-input"
                   type="text"
-                  className="rounded-none rounded-e-lg bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   defaultValue={sheet.backgroundColor}
                   onBlur={(e) => updateSheetProp('backgroundColor', e.target.value)}
                 />
-              </div>
+              </InputGroup>
             </div>
           </div>
         </form>

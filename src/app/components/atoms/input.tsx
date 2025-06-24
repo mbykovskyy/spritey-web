@@ -1,8 +1,10 @@
 "use client";
 
-import tw, { styled } from 'twin.macro'
+import tw, { css, styled } from 'twin.macro'
 
 const InputStyles = tw`
+  focus:z-20
+  
   block
   w-full
   p-2.5
@@ -28,12 +30,26 @@ const InputStyles = tw`
   dark:focus:ring-blue-500
 `;
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  icon?: HTMLElement
-  insetIcon?: boolean
-}
-
-export default styled.input<InputProps>(({ insetIcon = true }) => [
+const Input = styled.input(_ => [
   InputStyles,
-  insetIcon ? tw`rounded-lg` : tw`rounded-e-lg`
+  // label + input
+  css`
+    label + & {
+      ${tw`rounded-lg`}
+    }
+  `,
+  css`
+    &:first-child {
+      ${tw`rounded-s-lg`}
+    }
+  `,
+  css`
+    &:last-child {
+      ${tw`rounded-e-lg`}
+    }
+  `
 ]);
+
+export {
+  Input
+}
