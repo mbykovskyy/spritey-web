@@ -9,7 +9,7 @@ import { Input } from '../components/atoms/input';
 import Label from '../components/atoms/label';
 import Checkbox from '../components/atoms/checkbox'
 import { InputGroup, Text } from '../components/atoms/input-group';
-import InputField from '../components/atoms/input-field';
+import InputField from '../components/molecules/input-field';
 
 export default function SheetDefinitionSection({sheet, onChange}: {sheet: Sheet, onChange: any}) {
   async function updateSheetProp(propName: keyof Sheet, newValue: any) {

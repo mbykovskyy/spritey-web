@@ -12,21 +12,24 @@ const LabelStyles = tw`
 
 export default styled.label(_ => [
   LabelStyles,
-  // label + not(checkbox)
+  // label + not(checkbox OR radio)
   css`
-    &:has(+ *:not(input[type='checkbox'])) {
+    &:has(+ *:not(input[type='checkbox'])),
+    &:has(+ *:not(input[type='radio'])) {
       ${tw`mb-2`}
     }
   `,
-  // checkbox + label
+  // checkbox/radio + label
   css`
-    input[type='checkbox'] + & {
+    input[type='checkbox'] + &,
+    input[type='radio'] + & {
       ${tw`ms-2`}
     }
   `,
-  // label + checkbox
+  // label + checkbox/radio
   css`
-    &:has(+ input[type='checkbox']) {
+    &:has(+ input[type='checkbox']),
+    &:has(+ input[type='radio']) {
       ${tw`me-2`}
     }
   `

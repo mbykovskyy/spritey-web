@@ -1,8 +1,8 @@
 "use client";
 
 import { generateRandomHash } from '../utils/random';
-import Label from './label';
-import { Input } from './input';
+import Label from '../atoms/label';
+import { Input } from '../atoms/input';
 import { InputHTMLAttributes } from 'react';
 
 type InputFieldProps = {
